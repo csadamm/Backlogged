@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Backlogged</title>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+
+    <body>
+        <header>
+            <a href="index.html" id="site-logo">Backlogged</a>
+            <nav aria-label="Primary">
+                <ul>
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="backlog.html">My Backlog</a></li>
+                    <li><a href="add.html">Log Game</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="intro">
+                <h1>Welcome!</h1>
+                <p>Track your backlog. Review your games. Always have something to play next.</p>
+                <div id="intro-buttons">
+                    <a href="add.html"><i data-lucide="plus"></i>Log a Game</a>
+                    <a href="backlog.html"><i data-lucide="list"></i>Your Backlog</a>
+                </div>
+                
+            </section>
+
+            <section id="featured">
+                <h2>Top Games This Week</h2> 
+                <div id="featured-list">
+                    <!-- Games will be loaded here by JS later-->
+                </div>
+            </section>
+
+            <section id="recent">
+                <h2>Your Recent Activity</h2>
+                <div id="recent-activity">
+                    <!-- Games will be loaded here by JS later-->
+                </div>
+                <a href="backlog.html">See all games →</a>
+            </section>
+        </main>
+
+        <footer>
+            <p>Backlogged - Track your Gaming Journey!</p>
+        </footer>
+
+            <!-- Loads the Lucide icon library from the internet, 
+            making icon names like data-lucide="plus" available -->
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+        <!-- Tells Lucide to scan the page for any elements with 
+            data-lucide attributes and replace them with actual SVG icons -->
+        <script>
+            lucide.createIcons();
+        </script>
+    </body>
+</html>

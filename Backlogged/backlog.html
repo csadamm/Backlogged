@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Backlogged</title>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+
+    <body>
+        <header>
+            <a href="index.html" id="site-logo">Backlogged</a>
+            <nav aria-label="Primary">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="backlog.html" aria-current="page">My Backlog</a></li>
+                    <li><a href="add.html">Log Game</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div id="backlog-header">
+                <h1>My Backlog</h1>
+
+                <div id="controls">
+                    <select id="filter-status">
+                        <option value="all">All Games</option>
+                        <option value="current">Currently Playing</option>
+                        <option value="wishlist">Wishlist</option>
+                    </select>
+
+                    <select id="sort-order">
+                        <option value="by-excitement">By Excitement</option>
+                        <option value="by-date">By Release Date</option>
+                        <option value="by-last">By Last Modified</option>
+                        <option value="by-first">By First Added</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="game-list">
+                <!-- Games will be rendered here by JavaScript -->
+            </div>
+        </main>
+
+        <footer>
+            <p>Backlogged - Track your Gaming Journey!</p>
+        </footer>
+    </body>
+</html>
