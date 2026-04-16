@@ -265,6 +265,13 @@ main{
     background-color: var(--color-accent-hover);
 }
 
+#form-error{
+    color: red; 
+    display: none; 
+    text-align: center;
+    font-family: 'Space Grotesk', 'Space Mono', sans-serif;
+    margin-bottom: var(--space-sm);
+}
 /* game.html page */
 
 /* Re-read these later once API is added  */
@@ -426,4 +433,54 @@ main{
     #personal-review{
         width: 100%; /* stretch to full size*/
     }
+
+    /* game cards*/
+    .game-card {
+    width: calc(50% - var(--space-md));
+}
+}
+
+/* Game cards for backlog.js */
+#game-list{
+    display: flex;;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.game-card{
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: var(--space-md);
+    width: calc(25% - var(--space-md));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.game-card img{
+    width: 100%;
+    border-radius: 6px;
+}
+
+.game-card h3{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.game-card p{
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.game-card a{
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: auto;
+    transition: color 0.2s;
+}
+
+.game-card a:hover{
+    color: var(--color-accent-hover);
 }

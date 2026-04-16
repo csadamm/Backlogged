@@ -61,9 +61,14 @@ gameStatusSelect.addEventListener('change', updateFields);
 //run once so correct fields show on page load
 updateFields();
 
-//Now the js to actually save the game to the localStorage
+//Now the js to actually save the game to the localStorage + validate the form
 form.addEventListener('submit', function(event){
     event.preventDefault(); //stop page from refreshing
+
+    //validate form
+    if(!validateForm()){
+        return;
+    }
     
     //build a game object from the form values
     const game = {
@@ -87,3 +92,38 @@ form.addEventListener('submit', function(event){
     //redirect to backlog page after saving
     window.location.href = 'backlog.html';
 });
+
+//The below javascript is used to validate the form, i.e ensure that certain fields are filled in before logging game
+function validateForm(){
+    const status = gameStatusSelect.value;
+    const title = titleInput.value.trim(); //we trim to avoid the possibility of someone logging " " as a game
+    const error = document.getElementById('form-error');
+
+    //clear any previous error
+    error.style.display = 'none';
+    error.textContent = '';
+
+    if(!title){
+        error.textContent = 'Please enter a game title';
+        error.style.display = 'block';
+        return false;
+    }
+
+    if(status === 'wishlist' || status === 'current'){
+        if(!excitementInput.value){
+            error.textContent = 'Please enter an excitement rating';
+            error.style.display = 'block';
+            return false;
+        }
+    }
+
+    if(status === 'finished' || status === 'dropped'){
+        if(!ratingInput.value){
+            error.textContent = 'Please enter a rating';
+            error.style.display = 'block';
+            return false;
+        }
+    }
+
+    return true;
+}
