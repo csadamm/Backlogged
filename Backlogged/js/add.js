@@ -30,24 +30,24 @@ function updateFields(){
     reviewDiv.style.display = 'none';
 
     //Show fields depending on status
-    if(status === 'wishlist'){
+    if(status === 'Wishlist'){
         excitementDiv.style.display = 'flex';
         expectedRatingDiv.style.display = 'flex';
     }
 
-    if(status === 'current'){
+    if(status === 'Current'){
         excitementDiv.style.display = 'flex';
         expectedRatingDiv.style.display = 'flex';
         hoursDiv.style.display = 'flex';
     }
 
-    if(status === 'finished'){
+    if(status === 'Finished'){
         hoursDiv.style.display = 'flex';
         ratingDiv.style.display = 'flex';
         reviewDiv.style.display = 'flex';
     }
 
-    if(status === 'dropped'){
+    if(status === 'Dropped'){
         hoursDiv.style.display = 'flex';
         ratingDiv.style.display = 'flex';
         reviewDiv.style.display = 'flex';
@@ -109,7 +109,7 @@ function validateForm(){
         return false;
     }
 
-    if(status === 'wishlist' || status === 'current'){
+    if(status === 'Wishlist' || status === 'Current'){
         if(!excitementInput.value){
             error.textContent = 'Please enter an excitement rating';
             error.style.display = 'block';
@@ -117,7 +117,7 @@ function validateForm(){
         }
     }
 
-    if(status === 'finished' || status === 'dropped'){
+    if(status === 'Finished' || status === 'Dropped'){
         if(!ratingInput.value){
             error.textContent = 'Please enter a rating';
             error.style.display = 'block';
