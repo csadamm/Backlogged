@@ -38,7 +38,6 @@ function updateFields(){
     if(status === 'Current'){
         excitementDiv.style.display = 'flex';
         expectedRatingDiv.style.display = 'flex';
-        hoursDiv.style.display = 'flex';
     }
 
     if(status === 'Finished'){
@@ -74,7 +73,7 @@ form.addEventListener('submit', function(event){
     const game = {
         id: Date.now(), title: titleInput.value, status: gameStatusSelect.value,
         excitement: excitementInput.value, expectedRating: expectedRatingInput.value,
-        hours: hoursPlayedInput.value, rating: ratingInput.value, dropReason: dropReasonInput.value,
+        hours: hoursPlayedInput.value || 'N/A', rating: ratingInput.value, dropReason: dropReasonInput.value,
         review: reviewInput.value
     };
 

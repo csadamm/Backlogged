@@ -1,6 +1,6 @@
 //get references to backlog.html 
 const gameList = document.getElementById('game-list');
-const filterSelect = document.getElementById('filter-status');
+const filterCheckboxes = document.querySelectorAll('#filter-options input[type="checkbox"]');
 const sortSelect = document.getElementById('sort-order');
 
 // read games from localStorage
@@ -13,14 +13,19 @@ function renderGames(){
     let games = getGames();
 
     //filter
-    const filterValue = filterSelect.value;
-    if (filterValue !== 'all'){
-        games = games.filter(function(game){
-            //create a new array which only contains items where the condition returns true
-            // for example game.status === 'wishlist' only puts games set as 'wishlist'
-            return game.status === filterValue;
+    //get all checked values into an array
+    const checkedValues = Array.from(filterCheckboxes)
+        .filter(function(checkbox){
+            return checkbox.checked;
+        })
+        .map(function(checkbox){
+            return checkbox.value;
         });
-    }
+
+    //filter games to only those whose status is in the checked values
+    games = games.filter(function(game){
+        return checkedValues.includes(game.status);
+    });
 
     //sort
     const sortValue = sortSelect.value;
@@ -61,8 +66,7 @@ function renderGames(){
     gameList.innerHTML = ''; //clear existing content
 
     if(games.length === 0){
-        gameList.innerHTML = '<p>No games found</p>';
-        return;
+        gameList.innerHTML = '<p class="empty-message">No games found. Add one below!</p>';
     }
     games.forEach(function(game){  
         const card = document.createElement('div');
@@ -78,6 +82,10 @@ function renderGames(){
         if(game.status === 'Wishlist' || game.status === 'Current'){
             excitementHTML = `<p>Excitement: ${game.excitement}/10</p>`
         }
+        let hoursHTML = '';
+        if(game.status === 'Finished' || game.status === 'Dropped'){
+            hoursHTML = `<p>Play time: ${game.hours} hours</p>`
+        }
 
             card.innerHTML = `
                 <img src="${game.cover}" alt="${game.title} cover"/>
@@ -85,16 +93,30 @@ function renderGames(){
                 <p>${game.status}</p>
                 ${excitementHTML}
                 ${ratingHTML}
-                <p>Hours Played: ${game.hours}<p>
+                ${hoursHTML}
                 <a href="game.html?id=${game.id}">View -></a>
                 `;
 
             gameList.appendChild(card); //add card to the innerHTML 
     });
+
+    //Add an "add new game" card at the end of the list
+            const addCard = document.createElement('div');
+            //give the addCard the game-card class so it inherit the card shape/border, and also give it a new class name to style further
+            addCard.className = 'game-card add-new-card';
+            addCard.innerHTML = `
+                <a href="add.html">
+                    <span class="add-new-icon">+</span>
+                    <span class="add-new-label">Add New Game</span>
+                </a>
+            `;
+            gameList.appendChild(addCard);
 }
 
 //re-render when dropdown changes
-filterSelect.addEventListener('change', renderGames);
+filterCheckboxes.forEach(function(checkbox){
+    checkbox.addEventListener('change', renderGames);
+});
 sortSelect.addEventListener('change', renderGames);
 
 //call it on page load
