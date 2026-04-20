@@ -230,6 +230,7 @@ main{
 }
 
 #add-game-form div{
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -293,6 +294,47 @@ main{
     text-align: center;
     font-family: 'Space Grotesk', 'Space Mono', sans-serif;
     margin-bottom: var(--space-sm);
+}
+
+#search-results{
+    position: absolute; /* allows dropdown to float over the page content*/
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto; /*if content fits -> no scrollbar. if content doesnt fit -> scrollbar */
+    z-index: 10; /* top layer of site */
+    display: none;
+}
+
+/* removes the line bug */
+#search-results:empty{
+    display: none;
+}
+
+.search-result-item{
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover{
+    background-color: var(--color-bg);
+}
+
+.search-result-item img{
+    width: 128px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.search-result-item span{
+    font-size: 0.95rem;
 }
 /* game.html page */
 
@@ -373,6 +415,23 @@ main{
     background-color: var(--color-accent-hover);
 }
 
+#delete-button{
+    background-color: transparent;
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+    border-radius: 6px;
+    padding: var(--space-sm) var(--space-md);
+    font-family: 'Space Grotesk', 'Space Mono', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#delete-button:hover {
+    background-color: #ff4d4d;
+    color: var(--color-text);
+}
 /* media queries for mobile */
 
 @media(max-width: 768px){
@@ -463,8 +522,8 @@ main{
 }
 
 /* Game cards for backlog.js */
-#game-list{
-    display: flex;;
+#game-list, #recent-activity, #featured-list{
+    display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
 }
@@ -551,4 +610,36 @@ main{
 .add-new-label{
     font-size: 0.9rem;
     font-weight: 500;
+}
+
+/* affect the "No games logged yet" on index.html */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-lg);
+    width: 100%;
+    text-align: center;
+    color: var(--color-text);
+    border: 2px dashed var(--color-border);
+}
+
+.label-empty{
+    font-size: 1.3rem;
+}
+
+#recent .btn-empty {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    font-size: 1rem;
+    background-color: var(--color-surface);
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+#recent .btn-empty:hover {
+    color: var(--color-text);
 }

@@ -77,10 +77,13 @@ function renderGames(){
         if(game.status === 'Finished' || game.status === 'Dropped'){
             ratingHTML = `<p>Rating: ${game.rating}/5</p>`
         }
-
         let excitementHTML = '';
         if(game.status === 'Wishlist' || game.status === 'Current'){
             excitementHTML = `<p>Excitement: ${game.excitement}/10</p>`
+        }
+        let expectedHTML = '';
+        if(game.status === 'Wishlist' || game.status === 'Current'){
+            expectedHTML = `<p>Expected rating: ${game.expectedRating}/5</p>`
         }
         let hoursHTML = '';
         if(game.status === 'Finished' || game.status === 'Dropped'){
@@ -92,6 +95,7 @@ function renderGames(){
                 <h3>${game.title}</h3>
                 <p>${game.status}</p>
                 ${excitementHTML}
+                ${expectedHTML}
                 ${ratingHTML}
                 ${hoursHTML}
                 <a href="game.html?id=${game.id}">View -></a>
@@ -113,11 +117,50 @@ function renderGames(){
             gameList.appendChild(addCard);
 }
 
-//re-render when dropdown changes
-filterCheckboxes.forEach(function(checkbox){
-    checkbox.addEventListener('change', renderGames);
-});
-sortSelect.addEventListener('change', renderGames);
+//Save current filter/sort state to the localStorage for a persistent UI
+function saveState(){
+    //create an empty object to store the state of checkboxes
+    const checkboxStates = {};
+    //loop through every checkbox
+    filterCheckboxes.forEach(function(checkbox){
+        //store whether the checkbox is checked or not
+        checkboxStates[checkbox.value] = checkbox.checked;
+    });
+    localStorage.setItem('backlog-sort', sortSelect.value);
+    localStorage.setItem('backlog-filter', JSON.stringify(checkboxStates));
+}
 
-//call it on page load
+//restore filter/sort state from local Storage
+function restoreState(){
+    const savedSort = localStorage.getItem('backlog-sort');
+    if(savedSort){
+        sortSelect.value = savedSort;
+    }
+
+    const savedFilters = localStorage.getItem('backlog-filter');
+    if(savedFilters){
+        const checkboxStates = JSON.parse(savedFilters);
+        filterCheckboxes.forEach(function(checkbox){
+            if(checkboxStates[checkbox.value] !== undefined){
+                checkbox.checked = checkboxStates[checkbox.value];
+            }
+        });
+    }
+}
+
+//When a checkbox changes, or sort is changed, save state and re-render games
+filterCheckboxes.forEach(function(checkbox){
+    checkbox.addEventListener('change', function(){
+        saveState();
+        renderGames();
+    });
+});
+
+sortSelect.addEventListener('change', function(){
+    saveState();
+    renderGames();
+});
+
+//restore state and render games on pageload
+restoreState();
 renderGames();
